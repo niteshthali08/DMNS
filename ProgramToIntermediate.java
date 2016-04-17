@@ -63,6 +63,10 @@ public class ProgramToIntermediate extends HelloBaseListener {
 		{
 			ass_dict.put(identifier,ctx.ID(1).toString());			
 		}
+		if (ctx.NUMBER()!=null)
+		{	
+			ass_dict.put(identifier,String.valueOf(ctx.NUMBER().getText()));				
+		}
 	}
 	/**
 	 * {@inheritDoc}

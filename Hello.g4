@@ -13,7 +13,7 @@ line
 	| comments;
 
 assignment 
-	: ID '=' (expr|BOOLEXPR|ID);
+	: ID '=' (expr|BOOLEXPR|ID|NUMBER);
  
 expr : term ARITHOPERATOR  term;
 

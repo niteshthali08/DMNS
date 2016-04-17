@@ -15,18 +15,10 @@ line
 assignment 
 	: ID '=' (expr|BOOLEXPR|ID);
  
-expr
-	: term (| '+' expr)
-	| term (| '-' expr);
+expr : term ARITHOPERATOR  term;
 
-term
-	: factor (|'*' term)
-	| factor(|'/' term);
+term: ID | NUMBER;
 
-factor 
-	: ID 
-	| '(' expr ')'
-	| NUMBER;
 
 //if condition -- else is optional
 if_condition 
@@ -116,6 +108,8 @@ RELOPERATORS
 	| '<=' 
 	| '>=' 
 	| '!=';
+
+ARITHOPERATOR: '+' | '-' | '*' | '/';
 	
 WS 
 	: [ \t\r\n]+ -> skip ; // skip spaces, tabs, newlines

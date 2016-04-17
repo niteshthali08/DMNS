@@ -93,7 +93,7 @@ alphanumeric
 
 NUMBER: [0-9]+;
 
-ID: [a-z]+;
+ID: [A-Za-z]+;
 
 
 BOOLEXPR 

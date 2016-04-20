@@ -1,4 +1,4 @@
-/* WHILE & IF-ELSE High Level-------------------------------------*/
+/* WHILE & IF-ELSE --------------------------------------------------------*/
 
 while ( i > 0)
 { 
@@ -15,7 +15,6 @@ while ( i > 0)
 	}
 }  
 
-/* WHILE & IF-ELSE Intermediate---------------------------------------*/
 
 WSTR
 CGTR i 0
@@ -32,4 +31,23 @@ MOVE k 0
 IEND
 WEND
 
-/*-----------------------------------------------------------------*/
+/* STACK-----------------------------------------------------------------*/
+
+stack stA
+stack stB
+stA push(9)
+a = stA pop()
+stB push(14)
+stB push(17)
+b = stB pop()
+
+STACK stA
+STACK stB
+SPUSH stA 9
+MOV a SPOP stA
+SPUSH stB 14
+SPUSH stB 17
+MOV b SPOP stB
+
+/*----------------------------------------------------------------------------*/
+

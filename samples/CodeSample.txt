@@ -1,0 +1,35 @@
+/* WHILE & IF-ELSE High Level-------------------------------------*/
+
+while ( i > 0)
+{ 
+	if ( j < 4 ) 
+	{
+		 if ( k == TRUE )
+	     	{ m = 0
+	     	}
+	     i = 0
+	     c = 9
+	}
+	else
+	{ k = 0
+	}
+}  
+
+/* WHILE & IF-ELSE Intermediate---------------------------------------*/
+
+WSTR
+CGTR i 0
+ISTR
+CLES j 4
+ISTR
+CEQL k TRUE
+MOVE m 0
+IEND
+MOVE i 0
+MOVE c 9
+ESTR
+MOVE k 0
+IEND
+WEND
+
+/*-----------------------------------------------------------------*/

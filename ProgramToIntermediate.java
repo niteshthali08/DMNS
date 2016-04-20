@@ -415,7 +415,10 @@ public class ProgramToIntermediate extends HelloBaseListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterStack_declaration(HelloParser.Stack_declarationContext ctx) { }
+	@Override public void enterStack_declaration(HelloParser.Stack_declarationContext ctx) {
+		//	: 'stack' ID;
+		statements.add("STACK"+" "+ctx.ID().getText());
+	 }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -433,19 +436,26 @@ public class ProgramToIntermediate extends HelloBaseListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitStack_push(HelloParser.Stack_pushContext ctx) { }
+	@Override public void exitStack_push(HelloParser.Stack_pushContext ctx) { 
+		//	: ID 'push(' NUMBER ')'
+		statements.add("SPUSH "+ctx.ID().getText()+" "+ctx.NUMBER().getText());
+	}
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterStack_pop(HelloParser.Stack_popContext ctx) { }
+	@Override public void enterStack_pop(HelloParser.Stack_popContext ctx) { 
+	}
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitStack_pop(HelloParser.Stack_popContext ctx) { }
+	@Override public void exitStack_pop(HelloParser.Stack_popContext ctx) { 
+		//stack_pop : ID '=' ID 'pop()'
+		statements.add("MOV "+ctx.ID(0).getText()+" SPOP "+ctx.ID(1).getText());
+	}
 	/**
 	 * {@inheritDoc}
 	 *

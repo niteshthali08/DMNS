@@ -14,6 +14,9 @@ public class ProgramToIntermediate extends HelloBaseListener {
 	ArrayList<String> statements = new ArrayList<String>();
 	//Expression stack
 	Stack<String> expr_stack = new Stack<String>();
+	//Stack for maintaining If,while end conditions & relational operations order
+	Stack<String> block_stack = new Stack<String>();
+	ArrayList<String> ops = new ArrayList<String>();
 
 
 
@@ -180,19 +183,27 @@ public class ProgramToIntermediate extends HelloBaseListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterIf_condition(HelloParser.If_conditionContext ctx) { }
+	@Override public void enterIf_condition(HelloParser.If_conditionContext ctx) { 
+			 statements.add("ISTR");
+	         block_stack.push(String.valueOf("IEND"));
+	}
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitIf_condition(HelloParser.If_conditionContext ctx) { }
+	@Override public void exitIf_condition(HelloParser.If_conditionContext ctx) { 
+  		     statements.add(block_stack.pop());	
+
+	}
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterElse_statement(HelloParser.Else_statementContext ctx) { }
+	@Override public void enterElse_statement(HelloParser.Else_statementContext ctx) { 
+		     statements.add("ESTR");
+	}
 	/**
 	 * {@inheritDoc}
 	 *
@@ -204,13 +215,18 @@ public class ProgramToIntermediate extends HelloBaseListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterWhile_condition(HelloParser.While_conditionContext ctx) { }
+	@Override public void enterWhile_condition(HelloParser.While_conditionContext ctx) { 
+	         statements.add("WSTR");
+			 block_stack.push(String.valueOf("WEND"));
+	}
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitWhile_condition(HelloParser.While_conditionContext ctx) { }
+	@Override public void exitWhile_condition(HelloParser.While_conditionContext ctx) { 
+			 statements.add(block_stack.pop());	
+	}
 	/**
 	 * {@inheritDoc}
 	 *
@@ -240,7 +256,46 @@ public class ProgramToIntermediate extends HelloBaseListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterCondition_expression(HelloParser.Condition_expressionContext ctx) { }
+	@Override public void enterCondition_expression(HelloParser.Condition_expressionContext ctx) { 
+		ops.clear();
+		String operand ="";
+
+		if (ctx.ID(0) !=null )
+			 ops.add(ctx.ID(0).getText());
+		if (ctx.NUMBER(0) !=null)
+			 ops.add(ctx.NUMBER(0).getText());
+		if (ctx.ID(1)!=null)
+			 ops.add(ctx.ID(1).getText());
+		if (ctx.NUMBER(1)!=null)
+			 ops.add(ctx.NUMBER(1).getText());
+		if (ctx.BOOLEXPR()!=null)
+			 ops.add(ctx.BOOLEXPR().getText());	
+	
+		switch(ctx.RELOPERATORS().getText())
+		{
+			case "<":
+			  operand = "CLES"; 
+			  break;
+			case ">":
+			  operand = "CGTR"; 
+			  break;  
+			case "==":
+			  operand = "CEQL";
+			  break;  
+			case "<=":
+			  operand = "CLEQ"; 
+			  break;
+			case ">=":
+			  operand = "CGEQ" ;
+			  break; 
+            case "!=":
+			  operand = "NTEQ" ;
+			  break; 
+			default:
+				break;
+		}
+		statements.add(operand+" "+ops.get(0)+" "+ops.get(1));
+	}
 	/**
 	 * {@inheritDoc}
 	 *
@@ -360,7 +415,10 @@ public class ProgramToIntermediate extends HelloBaseListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterStack_declaration(HelloParser.Stack_declarationContext ctx) { }
+	@Override public void enterStack_declaration(HelloParser.Stack_declarationContext ctx) {
+		//	: 'stack' ID;
+		statements.add("STACK"+" "+ctx.ID().getText());
+	 }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -378,19 +436,26 @@ public class ProgramToIntermediate extends HelloBaseListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitStack_push(HelloParser.Stack_pushContext ctx) { }
+	@Override public void exitStack_push(HelloParser.Stack_pushContext ctx) { 
+		//	: ID 'push(' NUMBER ')'
+		statements.add("SPUSH "+ctx.ID().getText()+" "+ctx.NUMBER().getText());
+	}
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterStack_pop(HelloParser.Stack_popContext ctx) { }
+	@Override public void enterStack_pop(HelloParser.Stack_popContext ctx) { 
+	}
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitStack_pop(HelloParser.Stack_popContext ctx) { }
+	@Override public void exitStack_pop(HelloParser.Stack_popContext ctx) { 
+		//stack_pop : ID '=' ID 'pop()'
+		statements.add("MOV "+ctx.ID(0).getText()+" SPOP "+ctx.ID(1).getText());
+	}
 	/**
 	 * {@inheritDoc}
 	 *

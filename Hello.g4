@@ -35,9 +35,9 @@ while_condition
 condition 
 	: '(' condition_expression ')';
 
-//statement can be any expression that needs to be computed
+//statement can be any expression that needs to be computed // Multiple Lines
 statement 
-	: '{' line '}';
+	: '{' line+ '}';
 
 //relational operator will compare any two NUMBERs and then do the needful
 condition_expression 

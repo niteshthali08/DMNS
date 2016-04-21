@@ -1,0 +1,53 @@
+/* WHILE & IF-ELSE --------------------------------------------------------*/
+
+while ( i > 0)
+{ 
+	if ( j < 4 ) 
+	{
+		 if ( k == TRUE )
+	     	{ m = 0
+	     	}
+	     i = 0
+	     c = 9
+	}
+	else
+	{ k = 0
+	}
+}  
+
+
+WSTR
+CGTR i 0
+ISTR
+CLES j 4
+ISTR
+CEQL k TRUE
+MOVE m 0
+IEND
+MOVE i 0
+MOVE c 9
+ESTR
+MOVE k 0
+IEND
+WEND
+
+/* STACK-----------------------------------------------------------------*/
+
+stack stA
+stack stB
+stA push(9)
+a = stA pop()
+stB push(14)
+stB push(17)
+b = stB pop()
+
+STACK stA
+STACK stB
+SPUSH stA 9
+MOV a SPOP stA
+SPUSH stB 14
+SPUSH stB 17
+MOV b SPOP stB
+
+/*----------------------------------------------------------------------------*/
+

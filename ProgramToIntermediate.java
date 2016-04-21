@@ -307,7 +307,9 @@ public class ProgramToIntermediate extends HelloBaseListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFunc(HelloParser.FuncContext ctx) { }
+	@Override public void enterFunc(HelloParser.FuncContext ctx) { 
+
+	}
 	/**
 	 * {@inheritDoc}
 	 *
@@ -319,13 +321,19 @@ public class ProgramToIntermediate extends HelloBaseListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFunc_declaration(HelloParser.Func_declarationContext ctx) { }
+	@Override public void enterFunc_declaration(HelloParser.Func_declarationContext ctx) { 
+		// System.out.println(ctx.fname().func_name().ID());
+		statements.add("FSTR "+ctx.fname().func_name().ID().toString());
+
+	}
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFunc_declaration(HelloParser.Func_declarationContext ctx) { }
+	@Override public void exitFunc_declaration(HelloParser.Func_declarationContext ctx) { 
+		
+	}
 	/**
 	 * {@inheritDoc}
 	 *
@@ -349,13 +357,24 @@ public class ProgramToIntermediate extends HelloBaseListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFunc_body(HelloParser.Func_bodyContext ctx) { }
+	@Override public void exitFunc_body(HelloParser.Func_bodyContext ctx) { 
+		statements.add("FEND");
+	}
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterReturn_statement(HelloParser.Return_statementContext ctx) { }
+	@Override public void enterReturn_statement(HelloParser.Return_statementContext ctx) { 
+		if (ctx.ID()!=null)
+		{
+			statements.add("SEND "+ctx.ID().toString());			
+		}
+		else
+		{
+			statements.add("SEND "+String.valueOf(ctx.NUMBER().getText()));				
+		}
+	}
 	/**
 	 * {@inheritDoc}
 	 *
@@ -391,13 +410,19 @@ public class ProgramToIntermediate extends HelloBaseListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterParamlist(HelloParser.ParamlistContext ctx) { }
+	@Override public void enterParamlist(HelloParser.ParamlistContext ctx) { 
+		for (int i=0;i<ctx.ID().size() ;i++ )
+		{
+			statements.add("LOAD "+ctx.ID(i).toString());			
+		}
+	}
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitParamlist(HelloParser.ParamlistContext ctx) { }
+	@Override public void exitParamlist(HelloParser.ParamlistContext ctx) { 		
+	}
 	/**
 	 * {@inheritDoc}
 	 *

@@ -1,5 +1,4 @@
 symbolTableStack = []
-functionExecutionValueStack = []
 functionReturnAddressStack = []
 debug = 0
 def read_program():
@@ -11,9 +10,11 @@ def read_program():
         # fibonaci.am
         # while_loop.am
         # local_global.am
-        with open('while_loop.am') as f:
+        with open('functions.am') as f:
             for line in f:
                 line = line.strip()
+                if line == "":
+                    continue
                 program.append(line)
                 i = i + 1
     except IOError as e:
@@ -107,27 +108,6 @@ def execute_program(program):
             funcSymbolTable['type'] = 'FUNCTION'
             funcSymbolTable['funcName'] = contents[1];
             funcName = contents[1]
-
-            # contents = program[line].split(' ')
-            # while line < noOfLines and contents[0] == "PUSH":
-            #     if contents[1] == 'DEC1':
-            #         find = contents[2]
-            #         sub1 = True
-            #     elif contents[1] == 'DEC2':
-            #         find = contents[2]
-            #         sub2 = True
-            #     else:
-            #         find = contents[1]
-            #     noOfParameters += 1
-            #
-            #     funcSymbolTable[find] = look_up(find)
-            #     if(sub1):
-            #         funcSymbolTable[find] -= 1
-            #     elif (sub2):
-            #         funcSymbolTable[find] -= 2
-            #     line += 1
-            #     contents = program[line].split(' ')
-
             symbolTableStack.append(funcSymbolTable)
 
 
@@ -217,6 +197,7 @@ def execute_program(program):
         elif contents[0] == 'FEND':
             symbolTableStack.pop()
             line = functionReturnAddressStack[-1]
+            functionReturnAddressStack.pop()
             line -= 1
             consol_log(symbolTableStack)
 

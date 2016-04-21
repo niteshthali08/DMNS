@@ -1,0 +1,14 @@
+FSTR one
+MOVE n 1
+PRNT n
+FEND
+FSTR two
+MOVE n 2
+FCAL one
+PSTR
+PEND
+PRNT n
+FEND
+FCAL two
+PSTR
+PEND

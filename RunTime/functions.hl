@@ -1,0 +1,10 @@
+def one():
+    n = 1
+    print n
+
+def two():
+    n =2
+    one()
+    print n
+
+two()

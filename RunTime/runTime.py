@@ -100,7 +100,7 @@ def execute_program(program):
                 line = line + 1
 
         elif contents[0] == 'MOVE': #when assigning
-            symbolTableStack[-1][contents[1]] = int(contents[2])
+            symbolTableStack[-1][contents[1]] = look_up(contents[2])
             consol_log(symbolTableStack)
 
         elif contents[0] == 'FCAL':

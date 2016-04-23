@@ -410,7 +410,7 @@ public class ProgramToIntermediate extends HelloBaseListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void enterFcall(HelloParser.FcallContext ctx) { 
-		statements.add("FCALL "+ ctx.fname().func_name().ID().toString());
+		statements.add("FCAL "+ ctx.fname().func_name().ID().toString());
 	}
 	/**
 	 * {@inheritDoc}
@@ -428,7 +428,7 @@ public class ProgramToIntermediate extends HelloBaseListener {
 	@Override public void enterParamlist(HelloParser.ParamlistContext ctx) {
 		if (ctx.getParent().getParent().getClass().toString().equals(HelloParser.FcallContext.class.toString())) 
 		{
-			statements.add("PSTART");
+			statements.add("PSTR");
 			for (int i=0;i<ctx.ID().size() ;i++ )
 				{
 					statements.add("PUSH "+ctx.ID(i).toString());			

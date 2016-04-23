@@ -513,7 +513,7 @@ public class ProgramToIntermediate extends HelloBaseListener {
 	 */
 	@Override public void exitStack_pop(HelloParser.Stack_popContext ctx) { 
 		//stack_pop : ID '=' ID 'pop()'
-		statements.add("MOV "+ctx.ID(0).getText()+" SPOP "+ctx.ID(1).getText());
+		statements.add("SPOP "+ctx.ID(1).getText()+" "+ctx.ID(0).getText());
 	}
 	/**
 	 * {@inheritDoc}

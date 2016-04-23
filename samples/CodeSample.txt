@@ -26,9 +26,10 @@ MOVE m 0
 IEND
 MOVE i 0
 MOVE c 9
+IEND
 ESTR
 MOVE k 0
-IEND
+EEND
 WEND
 
 /* STACK-----------------------------------------------------------------*/

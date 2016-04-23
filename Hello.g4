@@ -74,7 +74,8 @@ paramlist
 stack
 	: stack_declaration 
 	| stack_push 
-	| stack_pop ;
+	| stack_pop 
+	| stack_empty;
 
 stack_declaration
 	: 'stack' ID;
@@ -86,6 +87,10 @@ stack_push
 stack_pop
 	: ID '=' ID 'pop()';
 //pop will be → a = s pop()
+
+stack_empty
+	:ID '=' ID 'isEmpty()';
+//flag = stA isEmpty()	
 
 comments
 	: '//' (alphanumeric)?;

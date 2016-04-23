@@ -1,3 +1,4 @@
+import sys
 symbolTableStack = []
 functionReturnAddressStack = []
 debug = 0
@@ -10,7 +11,7 @@ def read_program():
         # fibonaci.am
         # while_loop.am
         # local_global.am
-        with open('functions.am') as f:
+        with open(sys.argv[1]) as f:
             for line in f:
                 line = line.strip()
                 if line == "":
@@ -61,6 +62,8 @@ def get_end_of_block():
         report_error(None)
     return search
 
+
+
 def report_error(var):
     if var == None:
         print "ERROR: syntax error in the program"
@@ -73,7 +76,16 @@ def get_comparision_result(v1, v2):
     v2 = look_up(v2)
     result = compare_values(v1, v2)
     return result
-
+def add_to_symbol_table(key, val):
+    try:
+        for i in range(len(symbolTableStack) - 1, -1, -1):
+            if type(symbolTableStack[i]) == dict:
+                symbolTableStack[i][key] = val
+                return True
+    except:
+        print 'Exception in look up function'
+        exit(-1)
+    return False
 def update_symbol_table(key, val):
     try:
         for i in range(len(symbolTableStack) - 1, -1, -1):
@@ -91,6 +103,7 @@ def execute_program(program):
     line = 0
     noOfLines = len(program)
     fincName = None
+    ifExecuted = False
     while line < noOfLines:
         contents = program[line].split(' ')
         if (contents[0] == 'FSTR'):
@@ -132,7 +145,7 @@ def execute_program(program):
             symTable = {}
             if contents[0] == 'ISTR':
                 symTable['type'] = 'IF'
-                symTable['ifExecuted'] = False
+                ifExecuted = False
             else:
                 symTable['type'] = 'WHILE'
                 symTable['start_loop'] = line  #loop start
@@ -144,7 +157,7 @@ def execute_program(program):
             search = get_end_of_block()
             if (result == 0 and contents[0] == 'CEQL') or (result == 1 and contents[0] == 'CGTR') or (result == -1 and contents[0] == 'CLES'):
                 if symbolTableStack[-1]['type'] == 'IF':
-                    symbolTableStack[-1]['ifExecuted'] = True
+                    ifExecuted = True
             else:
                 while not program[line].startswith(search):
                     if (search == 'WEND'):
@@ -153,6 +166,23 @@ def execute_program(program):
                 line -= 1
 
         elif contents[0] == 'IEND':
+            symbolTableStack.pop()
+            consol_log(symbolTableStack)
+
+        elif contents[0] == 'ESTR':
+
+            if not ifExecuted :
+                elseStack = {}
+                symbolTableStack.append(elseStack);
+            else:
+                line += 1
+                contents = program[line].split(' ')
+                while not program[line].startswith('EEND'):
+                    line += 1
+                line -= 1
+
+        elif contents[0] == 'EEND':
+            ifExecuted = False
             symbolTableStack.pop()
             consol_log(symbolTableStack)
 
@@ -187,7 +217,7 @@ def execute_program(program):
             val = int(val)
             #print 'val: ',val
             symbolTableStack.pop()
-            symbolTableStack[-1][contents[1]] = val
+            add_to_symbol_table(contents[1], val)
             consol_log(symbolTableStack)
 
         elif contents[0] == 'PRNT':

@@ -398,22 +398,40 @@ public class ProgramToIntermediate extends HelloBaseListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFcall(HelloParser.FcallContext ctx) { }
+	@Override public void enterFcall(HelloParser.FcallContext ctx) { 
+		statements.add("FCALL "+ ctx.fname().func_name().ID().toString());
+	}
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFcall(HelloParser.FcallContext ctx) { }
+	@Override public void exitFcall(HelloParser.FcallContext ctx) { 
+		statements.add("LOAD "+ ctx.ID());
+	}
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterParamlist(HelloParser.ParamlistContext ctx) { 
-		for (int i=0;i<ctx.ID().size() ;i++ )
+	@Override public void enterParamlist(HelloParser.ParamlistContext ctx) {
+		System.out.println("In param list");
+		System.out.println(ctx.getParent().getParent().getClass().toString());
+		if (ctx.getParent().getParent().getClass().toString().equals(HelloParser.FcallContext.class.toString())) 
 		{
-			statements.add("LOAD "+ctx.ID(i).toString());			
+			statements.add("PSTART");
+			for (int i=0;i<ctx.ID().size() ;i++ )
+				{
+					statements.add("PUSH "+ctx.ID(i).toString());			
+				}
+			statements.add("PSTART");
+		}		
+		else
+		{
+			for (int i=0;i<ctx.ID().size() ;i++ )
+				{
+					statements.add("LOAD "+ctx.ID(i).toString());			
+				}
 		}
 	}
 	/**

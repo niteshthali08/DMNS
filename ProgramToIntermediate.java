@@ -1,4 +1,5 @@
 import java.util.*;
+import java.io.FileWriter;
 
 
 public class ProgramToIntermediate extends HelloBaseListener {
@@ -31,9 +32,19 @@ public class ProgramToIntermediate extends HelloBaseListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitProgram(HelloParser.ProgramContext ctx) { 
-		for(String line:statements){
-			System.out.println(line);
+
+		try
+		{
+					FileWriter writer = new FileWriter("assembly.am"); 
+		for(String str: statements) {
+		  writer.write(str+System.getProperty("line.separator"));
 		}
+		writer.close();		
+		}
+		catch(Exception e){}
+		// for(String line:statements){
+		// 	System.out.println(line);
+		// }
 
 	}
 	/**
@@ -59,7 +70,7 @@ public class ProgramToIntermediate extends HelloBaseListener {
 		ass_stack.push(identifier);		
 		if (ctx.BOOLEXPR()!=null)
 		{
-			System.out.println(ctx.BOOLEXPR());			
+			// System.out.println(ctx.BOOLEXPR());			
 			ass_dict.put(identifier,ctx.BOOLEXPR().getText().toString());		
 		}
 		if (ctx.ID(1)!=null)
@@ -193,7 +204,8 @@ public class ProgramToIntermediate extends HelloBaseListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitIf_condition(HelloParser.If_conditionContext ctx) { 
-  		     statements.add(block_stack.pop());	
+		    if (ctx.else_statement() == null)
+		   		  statements.add(block_stack.pop());	
 
 	}
 	/**
@@ -202,14 +214,20 @@ public class ProgramToIntermediate extends HelloBaseListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void enterElse_statement(HelloParser.Else_statementContext ctx) { 
+	  		 statements.add(block_stack.pop());	
 		     statements.add("ESTR");
+		     block_stack.push(String.valueOf("EEND"));
+
 	}
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitElse_statement(HelloParser.Else_statementContext ctx) { }
+	@Override public void exitElse_statement(HelloParser.Else_statementContext ctx) {
+  		     statements.add(block_stack.pop());	
+
+	 }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -398,22 +416,38 @@ public class ProgramToIntermediate extends HelloBaseListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFcall(HelloParser.FcallContext ctx) { }
+	@Override public void enterFcall(HelloParser.FcallContext ctx) { 
+		statements.add("FCAL "+ ctx.fname().func_name().ID().toString());
+	}
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFcall(HelloParser.FcallContext ctx) { }
+	@Override public void exitFcall(HelloParser.FcallContext ctx) { 
+		statements.add("LOAD "+ ctx.ID());
+	}
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterParamlist(HelloParser.ParamlistContext ctx) { 
-		for (int i=0;i<ctx.ID().size() ;i++ )
+	@Override public void enterParamlist(HelloParser.ParamlistContext ctx) {
+		if (ctx.getParent().getParent().getClass().toString().equals(HelloParser.FcallContext.class.toString())) 
 		{
-			statements.add("LOAD "+ctx.ID(i).toString());			
+			statements.add("PSTR");
+			for (int i=0;i<ctx.ID().size() ;i++ )
+				{
+					statements.add("PUSH "+ctx.ID(i).toString());			
+				}
+			statements.add("PEND");
+		}		
+		else
+		{
+			for (int i=0;i<ctx.ID().size() ;i++ )
+				{
+					statements.add("LOAD "+ctx.ID(i).toString());			
+				}
 		}
 	}
 	/**
@@ -479,7 +513,7 @@ public class ProgramToIntermediate extends HelloBaseListener {
 	 */
 	@Override public void exitStack_pop(HelloParser.Stack_popContext ctx) { 
 		//stack_pop : ID '=' ID 'pop()'
-		statements.add("MOV "+ctx.ID(0).getText()+" SPOP "+ctx.ID(1).getText());
+		statements.add("SPOP "+ctx.ID(1).getText()+" "+ctx.ID(0).getText());
 	}
 	/**
 	 * {@inheritDoc}

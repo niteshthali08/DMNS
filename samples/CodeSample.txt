@@ -26,9 +26,10 @@ MOVE m 0
 IEND
 MOVE i 0
 MOVE c 9
+IEND
 ESTR
 MOVE k 0
-IEND
+EEND
 WEND
 
 /* STACK-----------------------------------------------------------------*/
@@ -40,14 +41,17 @@ a = stA pop()
 stB push(14)
 stB push(17)
 b = stB pop()
+a = stA isEmpty()
+while (flag == FALSE)
 
 STACK stA
 STACK stB
 SPUSH stA 9
-MOV a SPOP stA
+SPOP stA a
+SEMPTY stA flag
 SPUSH stB 14
 SPUSH stB 17
-MOV b SPOP stB
+SPOP stB b
 
 /*----------------------------------------------------------------------------*/
 

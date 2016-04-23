@@ -1,0 +1,27 @@
+FSTR fact
+LOAD k
+ISTR
+CEQL k 1
+SEND 1
+IEND
+ISTR
+CEQL k 0
+SEND 1
+IEND
+SUB TempA k l
+MOVE t TempA
+FCAL fact
+PSTR
+PUSH t
+PEND
+LOAD i
+MUL TempB k i
+MOVE k TempB
+SEND k
+FEND
+MOVE n 5
+FCAL fact
+PSTR
+PUSH n
+PEND
+LOAD factorial

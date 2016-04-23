@@ -204,7 +204,8 @@ public class ProgramToIntermediate extends HelloBaseListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitIf_condition(HelloParser.If_conditionContext ctx) { 
-  		     statements.add(block_stack.pop());	
+		    if (ctx.else_statement() == null)
+		   		  statements.add(block_stack.pop());	
 
 	}
 	/**
@@ -213,14 +214,20 @@ public class ProgramToIntermediate extends HelloBaseListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void enterElse_statement(HelloParser.Else_statementContext ctx) { 
+	  		 statements.add(block_stack.pop());	
 		     statements.add("ESTR");
+		     block_stack.push(String.valueOf("EEND"));
+
 	}
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitElse_statement(HelloParser.Else_statementContext ctx) { }
+	@Override public void exitElse_statement(HelloParser.Else_statementContext ctx) {
+  		     statements.add(block_stack.pop());	
+
+	 }
 	/**
 	 * {@inheritDoc}
 	 *

@@ -10,7 +10,9 @@ line
 	| func
 	| fcall
 	| stack
-	| comments;
+	| comments
+	| popt
+	| return_statement;
 
 assignment 
 	: ID '=' (expr|BOOLEXPR|ID|NUMBER);
@@ -87,6 +89,25 @@ stack_pop
 
 comments
 	: '//' (alphanumeric)?;
+
+popt
+	: 'print' (ID|'\"'string'\"') ((','ID)*);
+	
+string
+	: (alphanumeric|SYMBOLS)+ ;
+
+SYMBOLS
+	: ':'
+	| '!'
+	| '@'
+	| '$'
+	| '%'
+	| '^'
+	| '&'
+	| '_'
+	| ';'
+	| '?';
+
 
 alphanumeric 
 	: (ID|NUMBER)+ ;

@@ -1,4 +1,5 @@
 import java.util.*;
+import java.io.FileWriter;
 
 
 public class ProgramToIntermediate extends HelloBaseListener {
@@ -31,9 +32,19 @@ public class ProgramToIntermediate extends HelloBaseListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitProgram(HelloParser.ProgramContext ctx) { 
-		for(String line:statements){
-			System.out.println(line);
+
+		try
+		{
+					FileWriter writer = new FileWriter("assembly.am"); 
+		for(String str: statements) {
+		  writer.write(str+System.getProperty("line.separator"));
 		}
+		writer.close();		
+		}
+		catch(Exception e){}
+		// for(String line:statements){
+		// 	System.out.println(line);
+		// }
 
 	}
 	/**
@@ -59,7 +70,7 @@ public class ProgramToIntermediate extends HelloBaseListener {
 		ass_stack.push(identifier);		
 		if (ctx.BOOLEXPR()!=null)
 		{
-			System.out.println(ctx.BOOLEXPR());			
+			// System.out.println(ctx.BOOLEXPR());			
 			ass_dict.put(identifier,ctx.BOOLEXPR().getText().toString());		
 		}
 		if (ctx.ID(1)!=null)
@@ -415,8 +426,6 @@ public class ProgramToIntermediate extends HelloBaseListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void enterParamlist(HelloParser.ParamlistContext ctx) {
-		System.out.println("In param list");
-		System.out.println(ctx.getParent().getParent().getClass().toString());
 		if (ctx.getParent().getParent().getClass().toString().equals(HelloParser.FcallContext.class.toString())) 
 		{
 			statements.add("PSTART");
@@ -424,7 +433,7 @@ public class ProgramToIntermediate extends HelloBaseListener {
 				{
 					statements.add("PUSH "+ctx.ID(i).toString());			
 				}
-			statements.add("PSTART");
+			statements.add("PEND");
 		}		
 		else
 		{

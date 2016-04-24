@@ -515,6 +515,13 @@ public class ProgramToIntermediate extends HelloBaseListener {
 		//stack_pop : ID '=' ID 'pop()'
 		statements.add("SPOP "+ctx.ID(1).getText()+" "+ctx.ID(0).getText());
 	}
+	@Override public void enterStack_empty(HelloParser.Stack_emptyContext ctx) { 
+			//	ID '=' ID 'isEmpty()';
+			statements.add("SEMPTY "+ctx.ID(1).getText()+" "+ctx.ID(0).getText());
+	}
+	@Override public void exitStack_empty(HelloParser.Stack_emptyContext ctx) { 
+
+	}
 	/**
 	 * {@inheritDoc}
 	 *

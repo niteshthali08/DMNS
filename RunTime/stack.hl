@@ -1,0 +1,15 @@
+stack st;
+st push(1)
+st push(2)
+st push(3)
+st push(4)
+st push(5)
+
+flag = st isEmpty()
+while(flag == FALSE)
+{
+    item = st pop()
+    print item
+    flag = st isEmpty()
+}
+

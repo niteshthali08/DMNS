@@ -48,7 +48,11 @@ def look_up(key):
             if type(symbolTableStack[i]) == dict:
                 if key in symbolTableStack[i]:
                     value = symbolTableStack[i][key]
-                    return int(value)
+                    try:
+                        value =  int(value)
+                        return value
+                    except:
+                        return value;
 
         report_error(key)
 
@@ -230,6 +234,30 @@ def execute_program(program):
             functionReturnAddressStack.pop()
             line -= 1
             consol_log(symbolTableStack)
+        elif contents[0] == 'STACK':
+            add_to_symbol_table(contents[1], [])
+
+        elif contents[0] == 'SPUSH':
+            st = look_up(contents[1])
+            st.append(int(contents[2]))
+            update_symbol_table(contents[1], st)
+            consol_log(symbolTableStack)
+
+        elif contents[0] == 'SPOP':
+            st = look_up(contents[1])
+            rValue = st.pop()
+            add_to_symbol_table(contents[2], rValue)
+            update_symbol_table(contents[1], st)
+            consol_log(symbolTableStack)
+
+        elif contents[0] == 'SEMPT':
+            st = look_up(contents[1])
+            if len(st) == 0:
+               add_to_symbol_table(contents[2], 1)
+            else:
+                add_to_symbol_table(contents[2], 0)
+
+            consol_log(symbolTableStack)
 
         elif contents[0] == 'MULT':
             n1 = look_up(contents[2])
@@ -255,6 +283,15 @@ def execute_program(program):
             v = n1 - n2
             r_value = update_symbol_table(contents[1], v)
             if not r_value :
+                symbolTableStack[-1][contents[1]] = v
+            consol_log(symbolTableStack)
+
+        elif contents[0] == 'DIV':
+            n1 = look_up(contents[2])
+            n2 = look_up(contents[3])
+            v = n1 / n2
+            r_value = update_symbol_table(contents[1], v)
+            if not r_value:
                 symbolTableStack[-1][contents[1]] = v
             consol_log(symbolTableStack)
 

@@ -8,20 +8,22 @@ ISTR
 CEQL k 0
 SEND 1
 IEND
-SUB TempA k l
-MOVE t TempA
+MOVE TempA 1
+SUB TempB k TempA
+MOVE t TempB
 FCAL fact
 PSTR
 PUSH t
 PEND
 LOAD i
-MUL TempB k i
-MOVE k TempB
+MULT TempC k i
+MOVE k TempC
 SEND k
 FEND
-MOVE n 5
+MOVE n 6
 FCAL fact
 PSTR
 PUSH n
 PEND
 LOAD factorial
+PRNT factorial

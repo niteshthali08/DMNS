@@ -162,7 +162,7 @@ public class ProgramToIntermediate extends HelloBaseListener {
 			}
 			if (operation.equals("*"))
 			{					
-				statements.add("MUL "+temp+" "+id1+" "+id2);				
+				statements.add("MULT "+temp+" "+id1+" "+id2);				
 			}
 			if (operation.equals("/"))
 			{					

@@ -1,5 +1,5 @@
+MOVE n 10
 FSTR one
-MOVE n 1
 PRNT n
 FEND
 FSTR two

@@ -40,6 +40,7 @@ def compare_values(val1, val2):
         print "ERROR: Found Boolean data type"
         # write code to handle booleans
 def look_up(key):
+    function_scope = False
     try:
         key = int(key)
         return key
@@ -53,9 +54,37 @@ def look_up(key):
                         return value
                     except:
                         return value;
-
+                if symbolTableStack[i]['type'] == 'FUNCTION':
+                    function_scope = True
+                    break;
+        if key in symbolTableStack[0]:
+            try:
+                value = symbolTableStack[0][key]
+                value = int (value)
+                return value
+            except:
+                 return value
         report_error(key)
 
+def update_symbol_table(key, val):
+    function_scope = False
+    try:
+        for i in range(len(symbolTableStack) - 1, -1, -1):
+            if type(symbolTableStack[i]) == dict:
+                if key in symbolTableStack[i]:
+                    symbolTableStack[i][key] = val
+                    return True
+                if symbolTableStack[i]['type'] == 'FUNCTION':
+                    function_scope = True
+                    break;
+
+        if function_scope and key in symbolTableStack[0]:
+                symbolTableStack[0][key] = val
+                return True
+    except:
+        print 'Exception in look up function'
+        exit(-1)
+    return False
 def get_end_of_block():
     search = None
     if symbolTableStack[-1]['type'] == 'IF':
@@ -90,24 +119,17 @@ def add_to_symbol_table(key, val):
         print 'Exception in look up function'
         exit(-1)
     return False
-def update_symbol_table(key, val):
-    try:
-        for i in range(len(symbolTableStack) - 1, -1, -1):
-            if key in symbolTableStack[i]:
-                symbolTableStack[i][key] = val
-                return True
-    except:
-        print 'Exception in look up function'
-        exit(-1)
-    return False
+
 
 def execute_program(program):
+
     symbolTableStack.append({}) # global symbol table
     symbolTableStack[0]['type'] = 'GLOBAL'
     line = 0
     noOfLines = len(program)
     fincName = None
     ifExecuted = False
+    formalArgumentsStack = []
     while line < noOfLines:
         contents = program[line].split(' ')
         if (contents[0] == 'FSTR'):
@@ -121,27 +143,34 @@ def execute_program(program):
             consol_log(symbolTableStack)
 
         elif contents[0] == 'FCAL':
-            funcSymbolTable = {}
-            funcSymbolTable['type'] = 'FUNCTION'
-            funcSymbolTable['funcName'] = contents[1];
-            funcName = contents[1]
-            symbolTableStack.append(funcSymbolTable)
-
+           funcName = contents[1]
 
         elif contents[0] == 'PSTR':
             'Pass'
 
         elif contents[0] == 'PUSH':
             value = look_up(contents[1])
-            symbolTableStack.append(value)
+            formalArgumentsStack.append(value)
 
 
         elif contents[0] == 'PEND':
+
+            funcSymbolTable = {}
+            funcSymbolTable['type'] = 'FUNCTION'
+            symbolTableStack.append(funcSymbolTable)
+            functionReturnAddressStack.append(line + 1)
+
+            for i in range(len(formalArgumentsStack)-1, -1, -1):
+                symbolTableStack.append(formalArgumentsStack[i])
+
             if funcName == None:
                 report_error(funcName)
-            functionReturnAddressStack.append(line + 1)
-            line = symbolTableStack[0][funcName]
+            try:
+                line = symbolTableStack[0][funcName]
+            except:
+                report_error(funcName)
             funcName = None
+            formalArgumentsStack = []
             line -= 1
             consol_log(symbolTableStack)
 

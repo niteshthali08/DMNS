@@ -4,4 +4,6 @@ MOVE n 10
 PRNT n
 FEND
 FCAL simple
+PSTR
+PEND
 PRNT n

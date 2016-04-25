@@ -1,6 +1,6 @@
 MOVE n 1
 ISTR
-CEQL n 0
+CEQL n 1
 PRNT 1
 IEND
 ESTR

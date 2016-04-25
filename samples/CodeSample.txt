@@ -41,17 +41,40 @@ a = stA pop()
 stB push(14)
 stB push(17)
 b = stB pop()
-a = stA isEmpty()
-while (flag == FALSE)
 
 STACK stA
 STACK stB
 SPUSH stA 9
 SPOP stA a
-SEMPTY stA flag
 SPUSH stB 14
 SPUSH stB 17
 SPOP stB b
 
 /*----------------------------------------------------------------------------*/
+
+stack st
+st push(9)
+st push(10)
+
+flag = st isEmpty()
+while (flag==FALSE)
+{
+        a = st pop()
+        print a
+        flag = st isEmpty()
+}
+
+
+STACK st
+SPUSH st 9
+SPUSH st 10
+SEMPTY st flag
+WSTR
+CEQL flag FALSE
+SPOP st a
+SEMPTY st flag
+WEND
+
+/*----------------------------------------------------------------------------*/
+
 

@@ -515,6 +515,13 @@ public class ProgramToIntermediate extends HelloBaseListener {
 		//stack_pop : ID '=' ID 'pop()'
 		statements.add("SPOP "+ctx.ID(1).getText()+" "+ctx.ID(0).getText());
 	}
+	@Override public void enterStack_empty(HelloParser.Stack_emptyContext ctx) { 
+			//	ID '=' ID 'isEmpty()';
+			statements.add("SEMPTY "+ctx.ID(1).getText()+" "+ctx.ID(0).getText());
+	}
+	@Override public void exitStack_empty(HelloParser.Stack_emptyContext ctx) { 
+
+	}
 	/**
 	 * {@inheritDoc}
 	 *
@@ -545,6 +552,23 @@ public class ProgramToIntermediate extends HelloBaseListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+
+    @Override public void enterPopt(HelloParser.PoptContext ctx) { 
+    		//: 'print' (ID|'\"'string'\"') ((','ID)*);
+    	int i=0;
+    	if (ctx.string()!=null)
+		 	statements.add("SPRINT "+ctx.string().getText());
+    	
+    	while (ctx.ID(i) != null)
+    	{
+			statements.add("PRINT "+ctx.ID(i).getText());
+			i++;
+		}	
+    }
+
+	@Override public void exitPopt(HelloParser.PoptContext ctx) { 
+
+	}
 
 }
 

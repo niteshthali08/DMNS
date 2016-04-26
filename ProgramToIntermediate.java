@@ -19,6 +19,8 @@ public class ProgramToIntermediate extends HelloBaseListener {
 	Stack<String> block_stack = new Stack<String>();
 	ArrayList<String> ops = new ArrayList<String>();
 
+	String op_filename = "";
+
 
 
 
@@ -35,7 +37,9 @@ public class ProgramToIntermediate extends HelloBaseListener {
 
 		try
 		{
-					FileWriter writer = new FileWriter("assembly.am"); 
+			op_filename = op_filename.substring(0, op_filename.length() - 2);
+			op_filename += "am";
+					FileWriter writer = new FileWriter(op_filename); 
 		for(String str: statements) {
 		  writer.write(str+System.getProperty("line.separator"));
 		}
@@ -418,6 +422,7 @@ public class ProgramToIntermediate extends HelloBaseListener {
 	 */
 	@Override public void enterFcall(HelloParser.FcallContext ctx) { 
 		statements.add("FCAL "+ ctx.fname().func_name().ID().toString());
+		statements.add("PSTR");
 	}
 	/**
 	 * {@inheritDoc}
@@ -425,6 +430,7 @@ public class ProgramToIntermediate extends HelloBaseListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitFcall(HelloParser.FcallContext ctx) { 
+		statements.add("PEND");
 		statements.add("LOAD "+ ctx.ID());
 	}
 	/**
@@ -435,12 +441,10 @@ public class ProgramToIntermediate extends HelloBaseListener {
 	@Override public void enterParamlist(HelloParser.ParamlistContext ctx) {
 		if (ctx.getParent().getParent().getClass().toString().equals(HelloParser.FcallContext.class.toString())) 
 		{
-			statements.add("PSTR");
 			for (int i=0;i<ctx.ID().size() ;i++ )
 				{
 					statements.add("PUSH "+ctx.ID(i).toString());			
 				}
-			statements.add("PEND");
 		}		
 		else
 		{
@@ -557,11 +561,11 @@ public class ProgramToIntermediate extends HelloBaseListener {
     		//: 'print' (ID|'\"'string'\"') ((','ID)*);
     	int i=0;
     	if (ctx.string()!=null)
-		 	statements.add("SPRINT "+ctx.string().getText());
+		 	statements.add("SPRNT "+ctx.string().getText());
     	
     	while (ctx.ID(i) != null)
     	{
-			statements.add("PRINT "+ctx.ID(i).getText());
+			statements.add("PRNT "+ctx.ID(i).getText());
 			i++;
 		}	
     }

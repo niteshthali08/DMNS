@@ -9,8 +9,18 @@ public static void main(String[] args) throws Exception {
 System.out.println("In Tester Java");
 // create a CharStream that reads from standard input
 
-String file_name = "high.hl";
-File file = new File(file_name);
+String filename="";
+if (args.length >0)
+{
+	filename = args[0];
+}
+else
+{
+	System.out.println("Please enter the name of the file");
+	return;
+}
+//String file_name = "high.hl";
+File file = new File(filename);
 FileInputStream fis = null;
 fis = new FileInputStream(file);
 
@@ -30,7 +40,9 @@ System.out.println(tree.toStringTree(tparse));
 // Create a generic parse tree walker that can trigger callbacks
 ParseTreeWalker walker = new ParseTreeWalker();
 // Walk the tree created during the parse, trigger callbacks 
-walker.walk(new ProgramToIntermediate(), tree); System.out.println(); // print a \n after translation
+ProgramToIntermediate ptointermediate = new ProgramToIntermediate();
+ptointermediate.op_filename = filename;
+walker.walk(ptointermediate, tree); System.out.println(); // print a \n after translation
 
 }
 }

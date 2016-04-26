@@ -19,6 +19,8 @@ public class ProgramToIntermediate extends HelloBaseListener {
 	Stack<String> block_stack = new Stack<String>();
 	ArrayList<String> ops = new ArrayList<String>();
 
+	String op_filename = "";
+
 
 
 
@@ -35,7 +37,9 @@ public class ProgramToIntermediate extends HelloBaseListener {
 
 		try
 		{
-					FileWriter writer = new FileWriter("assembly.am"); 
+			op_filename = op_filename.substring(0, op_filename.length() - 2);
+			op_filename += "am";
+					FileWriter writer = new FileWriter(op_filename); 
 		for(String str: statements) {
 		  writer.write(str+System.getProperty("line.separator"));
 		}

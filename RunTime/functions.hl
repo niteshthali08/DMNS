@@ -1,10 +1,12 @@
 n = 10
-def one():
+func one()
+{
     print n
-
-def two():
-    n =2
+}
+func two()
+{
+    n = 2
     one()
     print n
-
+}
 two()

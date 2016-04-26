@@ -257,6 +257,9 @@ def execute_program(program):
             val = look_up(contents[1])
             print val
 
+        elif contents[0] == 'SPRNT':
+            print contents[1]
+
         elif contents[0] == 'FEND':
             symbolTableStack.pop()
             line = functionReturnAddressStack[-1]

@@ -1,5 +1,5 @@
-MOVE n 10
 FSTR one
+MOVE n 5
 PRNT n
 FEND
 FSTR two
@@ -12,3 +12,4 @@ FEND
 FCAL two
 PSTR
 PEND
+PRNT n

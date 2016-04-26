@@ -422,6 +422,7 @@ public class ProgramToIntermediate extends HelloBaseListener {
 	 */
 	@Override public void enterFcall(HelloParser.FcallContext ctx) { 
 		statements.add("FCAL "+ ctx.fname().func_name().ID().toString());
+		statements.add("PSTR");
 	}
 	/**
 	 * {@inheritDoc}
@@ -429,6 +430,7 @@ public class ProgramToIntermediate extends HelloBaseListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitFcall(HelloParser.FcallContext ctx) { 
+		statements.add("PEND");
 		statements.add("LOAD "+ ctx.ID());
 	}
 	/**
@@ -439,12 +441,10 @@ public class ProgramToIntermediate extends HelloBaseListener {
 	@Override public void enterParamlist(HelloParser.ParamlistContext ctx) {
 		if (ctx.getParent().getParent().getClass().toString().equals(HelloParser.FcallContext.class.toString())) 
 		{
-			statements.add("PSTR");
 			for (int i=0;i<ctx.ID().size() ;i++ )
 				{
 					statements.add("PUSH "+ctx.ID(i).toString());			
 				}
-			statements.add("PEND");
 		}		
 		else
 		{
@@ -561,11 +561,11 @@ public class ProgramToIntermediate extends HelloBaseListener {
     		//: 'print' (ID|'\"'string'\"') ((','ID)*);
     	int i=0;
     	if (ctx.string()!=null)
-		 	statements.add("SPRINT "+ctx.string().getText());
+		 	statements.add("SPRNT "+ctx.string().getText());
     	
     	while (ctx.ID(i) != null)
     	{
-			statements.add("PRINT "+ctx.ID(i).getText());
+			statements.add("PRNT "+ctx.ID(i).getText());
 			i++;
 		}	
     }

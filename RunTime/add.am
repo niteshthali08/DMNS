@@ -5,7 +5,7 @@ ADD TempA a b
 MOVE c TempA
 SEND c
 FEND
-MOVE n 4
+MOVE n TRUE
 MOVE m 3
 FCAL add
 PSTR

@@ -4,13 +4,11 @@ SPUSH st 2
 SPUSH st 3
 SPUSH st 4
 SPUSH st 5
-SEMPT st flag
+MOVE flag TRUE
+SEMPTY st flag
 WSTR
-CEQL flag 0
+CEQL flag FALSE
 SPOP st item
 PRNT item
-SEMPT st flag
+SEMPTY st flag
 WEND
-
-
-

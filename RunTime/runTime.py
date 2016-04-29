@@ -30,6 +30,8 @@ def consol_log(data):
 
 def look_up(key):
     function_scope = False
+    if key == 'TRUE' or key =='FALSE':
+        return key
     try:
         key = int(key)
         return key
@@ -95,7 +97,6 @@ def compare_values(val1, val2, flag):
     try:
         val1 = int (val1)
         val2 = int (val2)
-
         if flag == 'NQ':
             if val1 > val2:
                 return 1
@@ -109,9 +110,16 @@ def compare_values(val1, val2, flag):
             elif val1 <= val2:
                 return -1
             else:
+                return 2
+    except:
+        if ((val1 == 'TRUE' or val1 == 'FALSE') and (val2 == 'TRUE' or val2 == 'FALSE')):
+            if (val1 == val2):
                 return 0
-    except :
-        print "ERROR: while comparing values"
+            else:
+                return 2
+        else:
+            print "ERROR: Type mismatch while comparing values"
+            exit(-1)
         # write code to handle booleans
 def get_comparision_result(v1, v2, flag):
     v1 = look_up(v1)
@@ -130,6 +138,16 @@ def add_to_symbol_table(key, val):
         exit(-1)
     return False
 
+def check_types(val1, val2):
+    if ((val1 == 'TRUE' or val1 == 'FALSE') and (val2 == 'TRUE' or val2 == 'FALSE')):
+        return
+    try:
+        val1 = int (val1)
+        val2 = int (val2)
+
+    except:
+        print "ERROR: Type mismatch while performing arithmetic operation"
+        exit(-1)
 
 def execute_program(program):
 
@@ -202,6 +220,7 @@ def execute_program(program):
             symbolTableStack.append(symTable)
             consol_log(symbolTableStack)
 
+
         elif contents[0] == 'CEQL' or contents[0] == 'CLES' or contents[0] == 'CGTR':
             result = get_comparision_result(contents[1], contents[2], 'NQ')
             search = get_end_of_block()
@@ -215,10 +234,11 @@ def execute_program(program):
                     line += 1
                 line -= 1
 
+
         elif contents[0] == 'CNQL' or contents[0] == 'CLSE' or contents[0] == 'CGTE':
             result = get_comparision_result(contents[1], contents[2], 'EQ')
             search = get_end_of_block()
-            if (result == 0 and contents[0] == 'CNQL') or (result == 1 and contents[0] == 'CGTE') or (
+            if (result == 2 and contents[0] == 'CNQL') or (result == 1 and contents[0] == 'CGTE') or (
                     result == -1 and contents[0] == 'CLSE'):
                 if symbolTableStack[-1]['type'] == 'IF':
                     ifExecuted = True
@@ -283,7 +303,10 @@ def execute_program(program):
 
         elif contents[0] == 'LOAD': # for return value only
             val = symbolTableStack[-1]
-            val = int(val)
+            try:
+                val = int(val)
+            except:
+                'Pass'
             #print 'val: ',val
             symbolTableStack.pop()
             add_to_symbol_table(contents[1], val)
@@ -318,18 +341,19 @@ def execute_program(program):
             update_symbol_table(contents[1], st)
             consol_log(symbolTableStack)
 
-        elif contents[0] == 'SEMPT':
+        elif contents[0] == 'SEMPTY':
             st = look_up(contents[1])
             if len(st) == 0:
-               add_to_symbol_table(contents[2], 1)
+               update_symbol_table(contents[2], 'TRUE')
             else:
-                add_to_symbol_table(contents[2], 0)
+                update_symbol_table(contents[2], 'FALSE')
 
             consol_log(symbolTableStack)
 
         elif contents[0] == 'MULT':
             n1 = look_up(contents[2])
             n2 = look_up(contents[3])
+            check_types(n1, n2)
             v = n1 * n2
             r_value = update_symbol_table(contents[1], v)
             if not r_value:
@@ -339,6 +363,7 @@ def execute_program(program):
         elif contents[0] == 'ADD':
             n1 = look_up(contents[2])
             n2 = look_up(contents[3])
+            check_types(n1, n2)
             v = n1 + n2
             r_value = update_symbol_table(contents[1], v)
             if not r_value:
@@ -348,6 +373,7 @@ def execute_program(program):
         elif contents[0] == 'SUB':
             n1 = look_up(contents[2])
             n2 = look_up(contents[3])
+            check_types(n1, n2)
             v = n1 - n2
             r_value = update_symbol_table(contents[1], v)
             if not r_value :
@@ -357,6 +383,7 @@ def execute_program(program):
         elif contents[0] == 'DIV':
             n1 = look_up(contents[2])
             n2 = look_up(contents[3])
+            check_types(n1, n2)
             v = n1 / n2
             r_value = update_symbol_table(contents[1], v)
             if not r_value:

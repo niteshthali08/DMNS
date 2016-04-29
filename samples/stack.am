@@ -1,0 +1,14 @@
+STACK st
+SPUSH st 1
+SPUSH st 2
+SPUSH st 3
+SPUSH st 4
+SPUSH st 5
+MOVE flag TRUE
+SEMPTY st flag
+WSTR
+CEQL flag FALSE
+SPOP st item
+PRNT item
+SEMPTY st flag
+WEND

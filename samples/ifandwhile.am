@@ -1,0 +1,24 @@
+MOVE i 10
+MOVE j 4
+MOVE k 5
+MOVE sum 0
+WSTR
+CGTR i 0
+ISTR
+CEQL j 4
+ISTR
+NTEQ k 4
+MOVE TempA 10
+ADD TempB sum TempA
+MOVE sum TempB
+IEND
+IEND
+ESTR
+MOVE k 0
+EEND
+MOVE TempC 1
+SUB TempD i TempC
+MOVE i TempD
+WEND
+SPRNT sum
+PRNT sum

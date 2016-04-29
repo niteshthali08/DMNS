@@ -1,0 +1,26 @@
+MOVE m 6
+FSTR one
+LOAD j
+MOVE TempA 4
+ADD TempB j TempA
+MOVE j TempB
+SEND j
+FEND
+FSTR two
+LOAD i
+FCAL one
+PSTR
+PUSH i
+PEND
+LOAD res
+MOVE TempC 10
+ADD TempD res TempC
+MOVE res TempD
+SEND res
+FEND
+FCAL two
+PSTR
+PUSH m
+PEND
+LOAD val
+PRNT val

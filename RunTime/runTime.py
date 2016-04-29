@@ -28,19 +28,6 @@ def consol_log(data):
     if debug:
         print data
 
-def compare_values(val1, val2):
-    try:
-        val1 = int(val1)
-        val2 = int(val2)
-        if val1 > val2:
-            return 1
-        elif val1 < val2:
-            return -1
-        else:
-            return 0
-    except :
-        print "ERROR: Found Boolean data type"
-        # write code to handle booleans
 def look_up(key):
     function_scope = False
     try:
@@ -104,10 +91,32 @@ def report_error(var):
         print "ERROR: variable", var, 'is not defined'
     exit(-1)
 
-def get_comparision_result(v1, v2):
+def compare_values(val1, val2, flag):
+    try:
+        val1 = int (val1)
+        val2 = int (val2)
+
+        if flag == 'NQ':
+            if val1 > val2:
+                return 1
+            elif val1 < val2:
+                return -1
+            else:
+                return 0
+        else:
+            if val1 >= val2:
+                return 1
+            elif val1 <= val2:
+                return -1
+            else:
+                return 0
+    except :
+        print "ERROR: while comparing values"
+        # write code to handle booleans
+def get_comparision_result(v1, v2, flag):
     v1 = look_up(v1)
     v2 = look_up(v2)
-    result = compare_values(v1, v2)
+    result = compare_values(v1, v2, flag)
     return result
 
 def add_to_symbol_table(key, val):
@@ -190,9 +199,23 @@ def execute_program(program):
             consol_log(symbolTableStack)
 
         elif contents[0] == 'CEQL' or contents[0] == 'CLES' or contents[0] == 'CGTR':
-            result = get_comparision_result(contents[1], contents[2])
+            result = get_comparision_result(contents[1], contents[2], 'NQ')
             search = get_end_of_block()
             if (result == 0 and contents[0] == 'CEQL') or (result == 1 and contents[0] == 'CGTR') or (result == -1 and contents[0] == 'CLES'):
+                if symbolTableStack[-1]['type'] == 'IF':
+                    ifExecuted = True
+            else:
+                while not program[line].startswith(search):
+                    if (search == 'WEND'):
+                        symbolTableStack[-1]['exit_loop'] = True
+                    line += 1
+                line -= 1
+
+        elif contents[0] == 'CNQL' or contents[0] == 'CLSE' or contents[0] == 'CGTE':
+            result = get_comparision_result(contents[1], contents[2], 'EQ')
+            search = get_end_of_block()
+            if (result == 0 and contents[0] == 'CNQL') or (result == 1 and contents[0] == 'CGTE') or (
+                    result == -1 and contents[0] == 'CLSE'):
                 if symbolTableStack[-1]['type'] == 'IF':
                     ifExecuted = True
             else:
@@ -263,7 +286,7 @@ def execute_program(program):
             print val
 
         elif contents[0] == 'SPRNT':
-            print contents[1]
+            print contents[1],
 
         elif contents[0] == 'FEND':
             symbolTableStack.pop()

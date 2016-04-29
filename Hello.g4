@@ -93,7 +93,7 @@ stack_empty
 //flag = stA isEmpty()	
 
 comments
-	: '//' (alphanumeric)?;
+	: '/*' (.)*? '*/' ;
 
 popt
 	: 'print' (ID|'\"'string'\"') ((','ID)*);

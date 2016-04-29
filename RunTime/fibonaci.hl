@@ -1,13 +1,21 @@
-def fibonaci(n):
+func fibonaci(n)
+{
     res = 0
-    if n == 0 :
+    if(n == 0)
+    {
         return 0
-    if n == 1:
+    }
+    if(n == 1)
+    {
         return 1
-    f1 = fibonaci(n-1)
-    f2 = fibonaci(n-2)
+    }
+    t = n-1
+    f1 = fibonaci(t)
+    t = n-2
+    f2 = fibonaci(t)
     res = f1 + f2
     return res
+}
 
 n = 3
 res = fibonaci(3)

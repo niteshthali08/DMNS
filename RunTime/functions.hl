@@ -5,7 +5,7 @@ func one()
 }
 func two()
 {
-    n = 2
+
     one()
     print n
 }

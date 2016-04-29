@@ -3,7 +3,11 @@ MOVE n 10
 MOVE sum 0
 WSTR
 CLES i n
-ADD sum sum i
-ADD i i 1
+ADD TempA sum i
+MOVE sum TempA
+MOVE TempB 1
+ADD TempC i TempB
+MOVE i TempC
+PRNT sum
 WEND
 PRNT sum

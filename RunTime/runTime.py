@@ -2,15 +2,16 @@ import sys
 symbolTableStack = []
 functionReturnAddressStack = []
 debug = 0
+def usage():
+    print 'Usage: <python> <runTime.py> <program.am>'
+    exit(-1)
 def read_program():
     debug = 1;
     program = []
     i=0
     try:
-        #'factorial.am'
-        # fibonaci.am
-        # while_loop.am
-        # local_global.am
+        if (len(sys.argv) < 2 ):
+            usage()
         with open(sys.argv[1]) as f:
             for line in f:
                 line = line.strip()
@@ -26,6 +27,7 @@ def read_program():
 def consol_log(data):
     if debug:
         print data
+
 def compare_values(val1, val2):
     try:
         val1 = int(val1)
@@ -95,8 +97,6 @@ def get_end_of_block():
         report_error(None)
     return search
 
-
-
 def report_error(var):
     if var == None:
         print "ERROR: syntax error in the program"
@@ -109,6 +109,7 @@ def get_comparision_result(v1, v2):
     v2 = look_up(v2)
     result = compare_values(v1, v2)
     return result
+
 def add_to_symbol_table(key, val):
     try:
         for i in range(len(symbolTableStack) - 1, -1, -1):
@@ -139,8 +140,11 @@ def execute_program(program):
                 line = line + 1
 
         elif contents[0] == 'MOVE': #when assigning
-            symbolTableStack[-1][contents[1]] = look_up(contents[2])
+            r_value = update_symbol_table(contents[1], look_up(contents[2]))
+            if not r_value:
+                symbolTableStack[-1][contents[1]] = look_up(contents[2])
             consol_log(symbolTableStack)
+
 
         elif contents[0] == 'FCAL':
            funcName = contents[1]

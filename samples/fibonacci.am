@@ -1,0 +1,37 @@
+FSTR fibonaci
+LOAD n
+MOVE res 0
+ISTR
+CEQL n 0
+SEND 0
+IEND
+ISTR
+CEQL n 1
+SEND 1
+IEND
+MOVE TempA 1
+SUB TempB n TempA
+MOVE t TempB
+FCAL fibonaci
+PSTR
+PUSH t
+PEND
+LOAD fa
+MOVE TempC 2
+SUB TempD n TempC
+MOVE t TempD
+FCAL fibonaci
+PSTR
+PUSH t
+PEND
+LOAD fb
+ADD TempE fa fb
+MOVE res TempE
+SEND res
+FEND
+MOVE n 3
+FCAL fibonaci
+PSTR
+PEND
+LOAD res
+PRNT res

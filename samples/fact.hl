@@ -1,0 +1,19 @@
+func fact(k)
+{
+    if (k == 1)
+     {
+        return 1
+     }
+
+    if (k == 0)
+     {
+        return 1
+     }
+    t = k-1
+    i = fact (t)
+    k = k * i
+    return k
+}
+n = 5
+factorial = fact(n)
+print factorial

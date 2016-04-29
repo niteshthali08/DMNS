@@ -1,0 +1,15 @@
+m = 6
+func one(j)
+{
+    j = j + 4
+    return j
+}
+func two(i)
+{
+
+    res = one(i)
+    res = res + 10
+    return res
+}
+val = two(m)
+print val

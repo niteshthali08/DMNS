@@ -1,0 +1,16 @@
+x = 30
+y = 40
+m = 0
+n = 0
+if ( x < 20 ) 
+	{	 print "x",x	
+		 if ( y == 40)
+		   { m = 1
+		     print "m",m
+		   }
+	}
+else
+	{    n = 1
+		 print "n",n
+	}
+	

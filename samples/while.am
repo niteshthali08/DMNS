@@ -1,0 +1,13 @@
+MOVE i 0
+MOVE n 10
+MOVE sum 0
+WSTR
+CLES i n
+ADD TempA sum i
+MOVE sum TempA
+MOVE TempB 1
+ADD TempC i TempB
+MOVE i TempC
+WEND
+SPRNT sum
+PRNT sum

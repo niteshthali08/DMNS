@@ -210,6 +210,7 @@ def execute_program(program):
 
             if not ifExecuted :
                 elseStack = {}
+                elseStack['type'] = 'ELSE'
                 symbolTableStack.append(elseStack);
             else:
                 line += 1

@@ -139,6 +139,7 @@ def execute_program(program):
     noOfLines = len(program)
     fincName = None
     ifExecuted = False
+    elseExecuted = False
     formalArgumentsStack = []
     while line < noOfLines:
         contents = program[line].split(' ')
@@ -229,12 +230,14 @@ def execute_program(program):
                 line -= 1
 
         elif contents[0] == 'IEND':
+
             symbolTableStack.pop()
             consol_log(symbolTableStack)
 
         elif contents[0] == 'ESTR':
 
             if not ifExecuted :
+                elseExecuted = True
                 elseStack = {}
                 elseStack['type'] = 'ELSE'
                 symbolTableStack.append(elseStack);
@@ -247,7 +250,9 @@ def execute_program(program):
 
         elif contents[0] == 'EEND':
             ifExecuted = False
-            symbolTableStack.pop()
+            if elseExecuted:
+                symbolTableStack.pop()
+            elseExecuted = False
             consol_log(symbolTableStack)
 
         elif contents[0] == 'WEND':

@@ -1,3 +1,4 @@
+/* Program to demonstrate stack - push, pop and empty operations*/
 stack st
 st push(1)
 st push(2)
@@ -9,6 +10,14 @@ flag = st isEmpty()
 while(flag == FALSE)
 {
     item = st pop()
-    print item
+    print "item",item
     flag = st isEmpty()
 }
+/*
+Output : 
+item 5
+item 4
+item 3
+item 2
+item 1
+*/

@@ -9,6 +9,7 @@ SEMPTY st flag
 WSTR
 CEQL flag FALSE
 SPOP st item
+SPRNT item
 PRNT item
 SEMPTY st flag
 WEND

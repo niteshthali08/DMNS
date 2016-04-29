@@ -9,5 +9,5 @@ MOVE TempB 1
 ADD TempC i TempB
 MOVE i TempC
 WEND
-SPRNT sum
+SPRNT Sum
 PRNT sum

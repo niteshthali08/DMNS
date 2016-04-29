@@ -29,9 +29,11 @@ ADD TempE fa fb
 MOVE res TempE
 SEND res
 FEND
-MOVE n 3
+MOVE m 7
 FCAL fibonaci
 PSTR
+PUSH m
 PEND
 LOAD res
+SPRNT fibonaci
 PRNT res

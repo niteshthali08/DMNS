@@ -1,0 +1,13 @@
+MOVE n 5
+FSTR simple
+MOVE n 10
+SPRNT function
+PRNT n
+SEND n
+FEND
+FCAL simple
+PSTR
+PEND
+LOAD m
+SPRNT outer
+PRNT n

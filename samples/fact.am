@@ -26,4 +26,5 @@ PSTR
 PUSH n
 PEND
 LOAD factorial
+SPRNT factorial
 PRNT factorial

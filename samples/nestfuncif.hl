@@ -1,0 +1,28 @@
+/* Program to illustrate if-else within a function */
+m = 6
+i = 6
+func one(j)
+{
+    j = j + 4
+    return j
+}
+func two(i)
+{
+
+    res = one(i)
+    if (i == 6)
+    	{ newvar = 10
+    	}
+    else 
+        {
+          newvar = 0
+        }	
+    return res
+}
+val = two(m)
+print "val",val
+
+/* 
+input  : m=6
+Output : val 10
+*/	

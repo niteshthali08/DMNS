@@ -1,3 +1,4 @@
+/* Program to illustrate if else statement */
 x = 30
 y = 40
 m = 0
@@ -14,3 +15,6 @@ else
 		 print "n",n
 	}
 	
+/* 
+Output : n 1 
+*/	

@@ -1,0 +1,32 @@
+MOVE m 6
+MOVE i 6
+FSTR one
+LOAD j
+MOVE TempA 4
+ADD TempB j TempA
+MOVE j TempB
+SEND j
+FEND
+FSTR two
+LOAD i
+FCAL one
+PSTR
+PUSH i
+PEND
+LOAD res
+ISTR
+CEQL i 6
+MOVE newvar 10
+IEND
+ESTR
+MOVE newvar 0
+EEND
+SEND res
+FEND
+FCAL two
+PSTR
+PUSH m
+PEND
+LOAD val
+SPRNT val
+PRNT val

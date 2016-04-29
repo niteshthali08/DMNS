@@ -1,0 +1,16 @@
+/* Program to demonstrate local and global scope of the variables */
+n = 5
+func simple()
+{
+    n = 10
+    print "function",n
+    return n
+} 
+m = simple()   
+print "outer",n
+
+/* 
+output: 
+function 10
+outer 5
+*/	

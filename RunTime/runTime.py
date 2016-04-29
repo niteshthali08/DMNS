@@ -149,9 +149,12 @@ def execute_program(program):
                 line = line + 1
 
         elif contents[0] == 'MOVE': #when assigning
-            r_value = update_symbol_table(contents[1], look_up(contents[2]))
-            if not r_value:
+            if symbolTableStack[-1]['type'] == 'FUNCTION':
                 symbolTableStack[-1][contents[1]] = look_up(contents[2])
+            else:
+                r_value = update_symbol_table(contents[1], look_up(contents[2]))
+                if not r_value:
+                    symbolTableStack[-1][contents[1]] = look_up(contents[2])
             consol_log(symbolTableStack)
 
 

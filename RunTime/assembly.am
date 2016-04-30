@@ -1,0 +1,15 @@
+FSTR div
+LOAD m
+LOAD n
+DIV TempA m n
+MOVE a TempA
+SEND a
+FEND
+MOVE q 4
+MOVE w 2
+FCAL div
+PSTR
+PUSH q
+PUSH w
+PEND
+LOAD f

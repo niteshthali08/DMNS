@@ -1,0 +1,22 @@
+FSTR functwo
+LOAD b
+PRNT b
+SEND b
+FEND
+FSTR funcone
+LOAD a
+PRNT a
+MOVE b 5
+FCAL functwo
+PSTR
+PUSH b
+PEND
+LOAD a
+SEND a
+FEND
+MOVE d 4
+FCAL funcone
+PSTR
+PUSH d
+PEND
+LOAD g

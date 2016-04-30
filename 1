@@ -1,0 +1,16 @@
+FSTR add
+LOAD a
+LOAD b
+ADD TempA a b
+MOVE c TempA
+SEND c
+FEND
+MOVE n 3
+MOVE m 4
+FCAL add
+PSTR
+PUSH n
+PUSH m
+PEND
+LOAD o
+PRNT o

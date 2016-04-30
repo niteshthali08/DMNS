@@ -1,0 +1,18 @@
+func fibonaci(n){
+    res = 0
+    if (n == 0) {
+        return 0
+}
+    if (n == 1){
+        return 1
+}
+	t = n-1
+	u = n-2
+    f = fibonaci(t)
+    g = fibonaci(u)
+    res = f + g
+    return res
+}
+n = 3
+res = fibonaci(n)
+print res

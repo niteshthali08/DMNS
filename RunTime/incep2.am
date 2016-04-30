@@ -1,0 +1,9 @@
+FSTR funcone
+MOVE a 5
+PRNT a
+SEND a
+FEND
+FCAL funcone
+PSTR
+PEND
+LOAD b

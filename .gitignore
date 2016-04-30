@@ -1,6 +1,3 @@
-*.java
-*.class
-*.tokens
 
 __pycache__/
 *.py[cod]

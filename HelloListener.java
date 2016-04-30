@@ -247,16 +247,6 @@ public interface HelloListener extends ParseTreeListener {
 	 */
 	void exitStack_empty(HelloParser.Stack_emptyContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link HelloParser#comments}.
-	 * @param ctx the parse tree
-	 */
-	void enterComments(HelloParser.CommentsContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link HelloParser#comments}.
-	 * @param ctx the parse tree
-	 */
-	void exitComments(HelloParser.CommentsContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link HelloParser#popt}.
 	 * @param ctx the parse tree
 	 */

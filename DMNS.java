@@ -6,7 +6,7 @@ import java.io.IOException;
 public class DMNS {
 public static void main(String[] args) throws Exception {
 
-System.out.println("In Tester Java");
+//System.out.println("In Tester Java");
 // create a CharStream that reads from standard input
 
 String filename="";
@@ -35,7 +35,7 @@ CommonTokenStream tokens = new CommonTokenStream(tlex);
 HelloParser tparse = new HelloParser(tokens);
 
 ParseTree tree = tparse.program();
-System.out.println(tree.toStringTree(tparse));
+//System.out.println(tree.toStringTree(tparse));
 
 // Create a generic parse tree walker that can trigger callbacks
 ParseTreeWalker walker = new ParseTreeWalker();

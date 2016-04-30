@@ -1,5 +1,3 @@
-/* Program to illustrate factorial function */
-
 func fact(k)
 {
     if (k == 1)
@@ -19,8 +17,3 @@ func fact(k)
 n = 5
 factorial = fact(n)
 print "factorial",factorial
-
-/* 
-Input : n = 5
-Output : factorial 120 
-*/

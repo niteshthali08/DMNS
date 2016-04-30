@@ -1,5 +1,3 @@
-/* Program to illustrate factorial function */
-
 func fibonaci(n)
 {
     res = 0
@@ -22,8 +20,3 @@ func fibonaci(n)
 m = 7
 res = fibonaci(m)
 print "fibonaci",res
-
-/* 
-Input : m = 7
-Output : fibonaci 13 
-*/

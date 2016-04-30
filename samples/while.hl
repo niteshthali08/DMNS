@@ -1,4 +1,3 @@
-/* Program to demonstrate stack - push, pop and empty operations*/
 i = 0
 n = 10
 sum = 0
@@ -8,7 +7,3 @@ while(i<n)
     i = i+1
 }
 print "Sum",sum
-
-/* Output
-Sum	45
-*/

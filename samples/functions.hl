@@ -1,4 +1,3 @@
-/* Program to illustrate function call within a function definition */
 m = 6
 func one(j)
 {
@@ -14,8 +13,3 @@ func two(i)
 }
 val = two(m)
 print val
-
-/* 
-Input : m = 6
-Output : 20 
-*/

@@ -531,18 +531,7 @@ public class ProgramToIntermediate extends HelloBaseListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterComments(HelloParser.CommentsContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitComments(HelloParser.CommentsContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
+	
 	@Override public void enterAlphanumeric(HelloParser.AlphanumericContext ctx) { }
 	/**
 	 * {@inheritDoc}

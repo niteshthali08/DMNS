@@ -1,0 +1,30 @@
+fact.hl
+	Input : n = 5
+	Output : factorial 120 
+fibonacci.hl
+	Input : m = 7
+    Output : fibonaci 13
+functions.hl
+	Input : m = 6
+	Output : 20     
+ifandwhile.hl
+	sum 100
+ifelse.hl
+	Output : n 1 
+nestfunc.hl
+	input  : m=6
+	Output : val 10
+scope.hl
+	output: 
+	function 10
+	outer 5	
+stack.hl
+    Output : 
+    item 5
+    item 4
+    item 3
+    item 2
+    item 1	
+while.hl
+    Sum 45
+

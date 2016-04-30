@@ -10,7 +10,6 @@ line
 	| func
 	| fcall
 	| stack
-	| comments
 	| popt
 	| return_statement;
 
@@ -91,9 +90,6 @@ stack_pop
 stack_empty
 	:ID '=' ID 'isEmpty()';
 //flag = stA isEmpty()	
-
-comments
-	: '/*' (.)*? '*/' ;
 
 popt
 	: 'print' (ID|'\"'string'\"') ((','ID)*);
